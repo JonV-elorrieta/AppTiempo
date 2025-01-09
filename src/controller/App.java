@@ -16,7 +16,7 @@ public class App {
 	public static void main(String[] args) {
 		
 		CMenu cMenu = new CMenu();
-		cMenu.index();
+
 		
 	}
 

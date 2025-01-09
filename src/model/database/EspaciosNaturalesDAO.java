@@ -6,30 +6,30 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import model.EspaciosNaturales;
 import model.Municipios;
-import model.Provincias;
 
-public class MunicipiosDAO {
-	public List<Municipios> getMunicipiosByProvincia(Provincias provincia) {
+public class EspaciosNaturalesDAO {
+	public List<EspaciosNaturales> getEspaciosNaturalesByMunicipio(Municipios municipio) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 	
-		String hql = "from Municipios where provincias = ? ";
+		String hql = "Select en from EspaciosNaturales en join en.municipiosEspaciosNats men where men.municipios = ?";
 		Query q = session.createQuery(hql);
-		q.setParameter(0, provincia);
+		q.setParameter(0, municipio);
 		
-		List<Municipios> munis = (List<Municipios>) q.list();
+		List<EspaciosNaturales> esp = (List<EspaciosNaturales>) q.list();
+		
 
 		session.close();
-		return munis;
+		return esp;
 	}
 	
-	public void insertMunicipio(Municipios muni) {
+	public void insertEspaciosNaturales(EspaciosNaturales espN) {
 		Transaction txt = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		txt = session.beginTransaction();
-		session.save(muni);
+		session.save(espN);
 		txt.commit();
 		session.close();
 	}
-	
 }

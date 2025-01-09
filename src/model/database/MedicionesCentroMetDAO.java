@@ -6,30 +6,28 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.Municipios;
-import model.Provincias;
+import model.MedicionesCentroMet;
 
-public class MunicipiosDAO {
-	public List<Municipios> getMunicipiosByProvincia(Provincias provincia) {
+public class MedicionesCentroMetDAO {
+	public List<MedicionesCentroMet> getMedicionesCentroMet() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 	
-		String hql = "from Municipios where provincias = ? ";
+		String hql = "from MedicionesCentroMet";
 		Query q = session.createQuery(hql);
-		q.setParameter(0, provincia);
 		
-		List<Municipios> munis = (List<Municipios>) q.list();
+	
+		List<MedicionesCentroMet> mcm = (List<MedicionesCentroMet>) q.list();
 
 		session.close();
-		return munis;
+		return mcm;
 	}
 	
-	public void insertMunicipio(Municipios muni) {
+	public void insertMedicionesCentroMet(MedicionesCentroMet mcm) {
 		Transaction txt = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		txt = session.beginTransaction();
-		session.save(muni);
+		session.save(mcm);
 		txt.commit();
 		session.close();
 	}
-	
 }
